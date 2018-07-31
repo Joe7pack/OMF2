@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">Contacts</string>
+    <string name="employee_detail">Amiibo Character Detail</string>
+    <string name="employee_master">Amiibo Characters</string>
+    <string name="action">Favorite</string>
+    <color name="white">#FFFFFF</color>
+</resources>
