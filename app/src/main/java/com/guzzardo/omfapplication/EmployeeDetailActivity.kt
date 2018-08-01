@@ -106,7 +106,7 @@ class EmployeeDetailActivity : AppCompatActivity() {
         var phoneLiteralTopMargin = parms.topMargin
 
 
-        if (employeeData?.release?.na != null && employeeData?.release?.na!!.isNotEmpty()) {
+        if (employeeData?.release?.na != null && employeeData.release?.na!!.isNotEmpty()) {
 
             try {
                 val fmt = SimpleDateFormat("yyyy-MM-dd")
@@ -241,14 +241,6 @@ class EmployeeDetailActivity : AppCompatActivity() {
         }
     }
 
-    override fun onPause() {
-        super.onPause()
-    }
-
-    override fun onStart() {
-        super.onStart()
-    }
-
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         // Inflate the menu; this adds items to the action bar if it is present.
         menuInflater.inflate(R.menu.main_menu, menu)
@@ -272,7 +264,7 @@ class EmployeeDetailActivity : AppCompatActivity() {
         // Handle action bar item clicks here. The action bar will
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
-        val id = item.itemId
+        //val id = item.itemId
 
         /*
         if (id == R.id.action_favorite) {

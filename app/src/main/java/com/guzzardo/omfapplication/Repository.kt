@@ -23,7 +23,7 @@ class Repository(context: Context) : EmployeeModel {
 
     //@delegate:companion
     override val dataLoaded : Boolean //{ return true }
-        get() {  return joe.dataLoaded  }
+        get() {  return GetUserList.dataLoaded  }
 
     override val employeeList: List<Amiibo>?  //{ return Repository.employeeList}
         get() = Repository.employeeList
@@ -35,7 +35,7 @@ class Repository(context: Context) : EmployeeModel {
 
     private fun loadJSONData() {
         try {
-            JsonTask().executeOnExecutor(AsyncTask.SERIAL_EXECUTOR, "http://www.amiiboapi.com//api/amiibo/?type=figure")
+            JsonTask().executeOnExecutor(AsyncTask.SERIAL_EXECUTOR, " ")
         } catch (e: Exception) {
             println("Error creating JSON Employee list: $e")
         }
@@ -55,7 +55,7 @@ class Repository(context: Context) : EmployeeModel {
     }
 
     override fun setEmployeeList() {
-        //Collections.sort(employeeList)
+        Collections.sort(employeeList)
         setEmployeeMap()
     }
 
@@ -93,13 +93,22 @@ class Repository(context: Context) : EmployeeModel {
         internal var amiibo: List<Amiibo>? = null
     }
 
-    inner class Amiibo {
+    inner class Amiibo: Comparable<Amiibo> {
         internal var amiiboSeries: String? = null
         internal var character: String? = null
         internal var gameSeries: String? = null
         internal var head: String? = null
         internal var name: String? = null
         internal var release: Release? = null
+
+        override fun compareTo(otherEmployee: Amiibo): Int {
+            val thisNamePrefix = StringBuilder()
+            val otherNamePrefix = StringBuilder()
+
+            val valueHere = thisNamePrefix.toString() + this.name!!
+            val valueThere = otherNamePrefix.toString() + otherEmployee.name!!
+            return valueHere.compareTo(valueThere)
+        }
     }
 
     inner class Employee : Comparable<Employee> {
@@ -157,15 +166,11 @@ class Repository(context: Context) : EmployeeModel {
         internal var mobile: String? = null
     }
 
-    companion object joe {
+    companion object GetUserList {
         //private val url = "https://s3.amazonaws.com/technical-challenge/v3/contacts.json"
         private val url = "http://www.amiiboapi.com//api/amiibo/?type=figure"
-
-
         private var userList: UserList?=null
-
         private lateinit var employeeList: MutableList<Amiibo>
-
 
         //private var employeeList: List<Amiibo>? = null
         //    get() = field
@@ -191,7 +196,7 @@ class Repository(context: Context) : EmployeeModel {
                     employeeList.add(data)
                 }
 
-                //Collections.sort(employeeList!!)
+                Collections.sort(employeeList!!)
                 setEmployeeMap()
             } catch (e: Exception) {
                 e.printStackTrace()
